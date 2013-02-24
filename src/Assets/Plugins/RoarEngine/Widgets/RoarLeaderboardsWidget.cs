@@ -11,7 +11,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 	
 	public delegate void RoarLeaderboardsWidgetSelectedHandler(string leaderboardKey, string leaderboardName);
 	
-	public enum WhenToFetch { OnEnable, Once, Occassionally, Manual };
+	public enum WhenToFetch { OnEnable, Once, Occasionally, Manual };
 	public WhenToFetch whenToFetch = WhenToFetch.OnEnable;
 	public float howOftenToFetch = 60;
 
@@ -82,7 +82,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 		//Do we need to fetch the list of boards?
 		if (whenToFetch == WhenToFetch.OnEnable 
 		|| (whenToFetch == WhenToFetch.Once && !boards.HasBoardList)
-		|| (whenToFetch == WhenToFetch.Occassionally && (whenLastFetched == 0 || Time.realtimeSinceStartup - whenLastFetched >= howOftenToFetch))
+		|| (whenToFetch == WhenToFetch.Occasionally && (whenLastFetched == 0 || Time.realtimeSinceStartup - whenLastFetched >= howOftenToFetch))
 		)
 		{
 			FetchBoardList();
