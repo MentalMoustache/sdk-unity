@@ -24,6 +24,9 @@ public class RoarInventoryWidget : RoarUIWidget
 	public int maxDescriptionFormatWidth = 350;
 	public int maxTypeWidth = 100;
 	public int rowHeight = 32;
+	public int divideHeight = 30;
+	public int margin = 5;
+
 	protected override void OnEnable ()
 	{
 		inventory = roar.Inventory;
@@ -60,42 +63,41 @@ public class RoarInventoryWidget : RoarUIWidget
 		IList<Roar.DomainObjects.InventoryItem> items = inventory.List();
 
 		//TODO: Fixup the hardcoded dimensions here!
-		Rect rect = new Rect(0,0,ContentWidth, 32);
-		GUI.Label ( rect, string.Format("Contains {0} items", items.Count) );
-		rect.y += rowHeight;
+		Rect rect = new Rect(margin,0,ContentWidth, 32);
+		GUI.Box(new Rect(0, 0, contentBounds.width, divideHeight), new GUIContent(""), "DefaultSeparationBar");
 		
 		Vector2 lastLabelSize;
-		lastLabelSize = GUI.skin.FindStyle(labelFormat).CalcSize(new GUIContent( "Label"));
+		lastLabelSize = GUI.skin.FindStyle("DefaultSeparationBarText").CalcSize(new GUIContent( "Label"));
 		if(maxLabelWidth == 0)
 			rect.width = lastLabelSize.x;
 		else
 			rect.width = maxLabelWidth;
-		GUI.Label ( rect, "Label", labelFormat);
+		GUI.Label ( rect, "LABEL", "DefaultSeparationBarText");
 		
-		rect.x += rect.width + 5;
+		rect.x += rect.width + margin;
 		
-		lastLabelSize =GUI.skin.FindStyle(descriptionFormat).CalcSize(new GUIContent("Description"));
+		lastLabelSize =GUI.skin.FindStyle("DefaultSeparationBarText").CalcSize(new GUIContent("Description"));
 		if(maxDescriptionFormatWidth == 0)
 			rect.width = lastLabelSize.x;
 		else
 			rect.width = maxDescriptionFormatWidth;
 			
-		GUI.Label ( rect, "Description", descriptionFormat);
-		rect.x += rect.width+ 5;
+		GUI.Label ( rect, "DESCRIPTION", "DefaultSeparationBarText");
+		rect.x += rect.width+ margin;
 		
-		lastLabelSize =GUI.skin.FindStyle(typeFormat).CalcSize(new GUIContent("Type"));
+		lastLabelSize =GUI.skin.FindStyle("DefaultSeparationBarText").CalcSize(new GUIContent("Type"));
 		if(maxTypeWidth == 0)
 			rect.width = lastLabelSize.x;
 		else
 			rect.width = maxTypeWidth;
 			
-		GUI.Label ( rect, "Type", typeFormat);
-		rect.x += rect.width+ 5;
+		GUI.Label ( rect, "TYPE", "DefaultSeparationBarText");
+		rect.x += rect.width+ margin;
 		
 		lastLabelSize =GUI.skin.FindStyle(consumeButtonFormat).CalcSize(new GUIContent("Consume"));
 		rect.width = lastLabelSize.x;
 		
-		rect.x = 0;
+		rect.x = margin;
 		rect.y += rowHeight;
 		
 		foreach( Roar.DomainObjects.InventoryItem item in items )
@@ -108,7 +110,7 @@ public class RoarInventoryWidget : RoarUIWidget
 				rect.width = maxLabelWidth;
 			GUI.Label ( rect, item.label, labelFormat);
 			
-			rect.x += rect.width + 5;
+			rect.x += rect.width + margin;
 			
 			lastLabelSize =GUI.skin.FindStyle(descriptionFormat).CalcSize(new GUIContent(item.description));
 			if(maxDescriptionFormatWidth == 0)
@@ -117,7 +119,7 @@ public class RoarInventoryWidget : RoarUIWidget
 				rect.width = maxDescriptionFormatWidth;
 				
 			GUI.Label ( rect, item.description, descriptionFormat);
-			rect.x += rect.width+ 5;
+			rect.x += rect.width+ margin;
 			
 			lastLabelSize =GUI.skin.FindStyle(typeFormat).CalcSize(new GUIContent(item.type));
 			if(maxTypeWidth == 0)
@@ -126,20 +128,9 @@ public class RoarInventoryWidget : RoarUIWidget
 				rect.width = maxTypeWidth;
 				
 			GUI.Label ( rect, item.type, typeFormat);
-			rect.x += rect.width+ 5;
+			rect.x += rect.width+ margin;
 			
-			lastLabelSize =GUI.skin.FindStyle(consumeButtonFormat).CalcSize(new GUIContent("Consume"));
-			rect.width = lastLabelSize.x;
-			
-			if(item.consumable)
-			{
-				if(GUI.Button(rect, "Consume", consumeButtonFormat))
-				{
-					
-				}
-				
-			}
-			rect.x = 0;
+			rect.x = margin;
 			rect.y += rowHeight;
 		}
 	}
@@ -147,11 +138,13 @@ public class RoarInventoryWidget : RoarUIWidget
 	public void Fetch()
 	{
 		isFetching = true;
+		networkActionInProgress = true;
 		inventory.Fetch(OnRoarFetchInventoryComplete);
 	}
 	
 	void OnRoarFetchInventoryComplete( Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.InventoryItem> > data )
 	{
+		networkActionInProgress = false;
 		isFetching = false;
 	}
 	

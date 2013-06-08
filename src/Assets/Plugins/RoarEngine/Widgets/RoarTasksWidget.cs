@@ -8,10 +8,10 @@ public class RoarTasksWidget : RoarUIWidget
 	
 	protected Roar.Components.ITasks tasks;
 	protected bool isFetching=false;
-	public string labelFormat = "TaskLabel";
-	public string descriptionFormat = "TaskDescription";
+	public string labelFormat = "DefaultHeavyContentText";
+	public string descriptionFormat = "DefaultLightContentText";
 	public string locationFormat = "TaskLocation";
-	public string detailFormat = "TaskDetail";
+	public string detailFormat = "DefaultLightContentText";
 	
 	public bool showDescription = true;
 	public bool showType = true;
@@ -21,6 +21,10 @@ public class RoarTasksWidget : RoarUIWidget
 	public int maxDescriptionFormatWidth = 350;
 	public int maxLocationWidth = 100;
 	public int rowHeight = 32;
+	public int buttonWidth = 130;
+	public int buttonHeight = 30;
+	public int divideHeight = 30;
+	public int margin = 5;
 	
 	bool hasSelectedTask = false;
 	Roar.DomainObjects.Task selectedTask = null;
@@ -202,6 +206,7 @@ public class RoarTasksWidget : RoarUIWidget
 	protected override void OnEnable ()
 	{
 		hasSelectedTask = false;
+		drawSubheading = false;
 		if (!IsLoggedIn)
 		{
 			Debug.Log ("RoarTasksWidget enabled before login - unable to fetch data");
@@ -235,9 +240,8 @@ public class RoarTasksWidget : RoarUIWidget
 	
 			IList<Roar.DomainObjects.Task> items = tasks.List();
 			
-			Rect rect = new Rect(0,0,ContentWidth, 32);
-			GUI.Label ( rect, string.Format("Contains {0} items", items.Count) );
-			rect.y += rowHeight;
+			Rect rect = new Rect(margin,0,ContentWidth, divideHeight);
+			GUI.Box(new Rect(0, 0, contentBounds.width, divideHeight), new GUIContent(""), "DefaultSeparationBar");
 			
 			Vector2 lastLabelSize;
 			lastLabelSize = GUI.skin.FindStyle(labelFormat).CalcSize(new GUIContent( "Label"));
@@ -245,9 +249,9 @@ public class RoarTasksWidget : RoarUIWidget
 				rect.width = lastLabelSize.x;
 			else
 				rect.width = maxLabelWidth;
-			GUI.Label ( rect, "Label", labelFormat);
+			GUI.Label ( rect, "LABEL", "DefaultSeparationBarText");
 			
-			rect.x += rect.width + 5;
+			rect.x += rect.width + margin;
 			
 			lastLabelSize =GUI.skin.FindStyle(descriptionFormat).CalcSize(new GUIContent("Description"));
 			if(maxDescriptionFormatWidth == 0)
@@ -255,22 +259,18 @@ public class RoarTasksWidget : RoarUIWidget
 			else
 				rect.width = maxDescriptionFormatWidth;
 				
-			GUI.Label ( rect, "Description", descriptionFormat);
-			rect.x += rect.width+ 5;
+			GUI.Label ( rect, "DESCRIPTION", "DefaultSeparationBarText");
+			rect.x += rect.width+ margin;
 			
-			lastLabelSize =GUI.skin.FindStyle(locationFormat).CalcSize(new GUIContent("Location"));
-			if(maxLocationWidth == 0)
-				rect.width = lastLabelSize.x;
-			else
-				rect.width = maxLocationWidth;
-				
-			GUI.Label ( rect, "Location", locationFormat);
-			rect.x += rect.width+ 5;
+			rect.height = rowHeight;
+			rect.y += divideHeight;
+			rect.x += rect.width+ margin;
 			rect.y += lastLabelSize.y;
 			foreach( Roar.DomainObjects.Task item in items )
 			{
+				GUI.Box(new Rect(0, rect.y, contentBounds.width, rowHeight), new GUIContent(""), "DefaultHorizontalSection");
 				
-				rect.x =0;
+				rect.x =margin;
 				
 				lastLabelSize = GUI.skin.FindStyle(labelFormat).CalcSize(new GUIContent( item.label));
 				if(maxLabelWidth == 0)
@@ -279,7 +279,7 @@ public class RoarTasksWidget : RoarUIWidget
 					rect.width = maxLabelWidth;
 				GUI.Label ( rect, item.label, labelFormat);
 				
-				rect.x += rect.width + 5;
+				rect.x += rect.width + margin;
 				
 				lastLabelSize =GUI.skin.FindStyle(descriptionFormat).CalcSize(new GUIContent(item.description));
 				if(maxDescriptionFormatWidth == 0)
@@ -288,7 +288,7 @@ public class RoarTasksWidget : RoarUIWidget
 					rect.width = maxDescriptionFormatWidth;
 					
 				GUI.Label ( rect, item.description, descriptionFormat);
-				rect.x += rect.width+ 5;
+				rect.x += rect.width+ margin;
 				
 				lastLabelSize =GUI.skin.FindStyle(locationFormat).CalcSize(new GUIContent(item.location));
 				if(maxLocationWidth == 0)
@@ -297,24 +297,31 @@ public class RoarTasksWidget : RoarUIWidget
 					rect.width = maxLocationWidth;
 					
 				GUI.Label ( rect, item.location, locationFormat);
-				rect.x += rect.width+ 5;
+				rect.x += rect.width+ margin;
+				rect.height = buttonHeight;
+				rect.width = buttonWidth;
+				float oldY = rect.y;
+				rect.y+= rowHeight/2 - buttonHeight/2;
 				
 			
-				if(GUI.Button(rect, "View"))
+				if(GUI.Button(rect, "View", "DefaultButtonCenter"))
 				{
 					selectedTask = item;
 					hasSelectedTask = true;
+					drawSubheading = true;
+					subheaderName = selectedTask.ikey;
 					
 				}
 				
+				rect.y = oldY;
 				
-				rect.x = 0;
+				rect.x = margin;
 				rect.y += rowHeight;
 			}
 		}
 		else
 		{
-			Rect rect = new Rect(0,0,ContentWidth, 32);
+			Rect rect = new Rect(margin,0,ContentWidth, 32);
 			Vector2 lastLabelSize;
 			
 			lastLabelSize = GUI.skin.FindStyle(labelFormat).CalcSize(new GUIContent( selectedTask.label));
@@ -329,7 +336,6 @@ public class RoarTasksWidget : RoarUIWidget
 			rect.height = lastLabelSize.y;
 			rect.width = lastLabelSize.x;
 				
-			GUI.Label ( rect, selectedTask.description, descriptionFormat);
 			rect.y += lastLabelSize.y;
 			
 			lastLabelSize =GUI.skin.FindStyle(locationFormat).CalcSize(new GUIContent("Location: "+selectedTask.location));
@@ -337,11 +343,6 @@ public class RoarTasksWidget : RoarUIWidget
 			rect.width = lastLabelSize.x;
 			
 			
-			if(maxLocationWidth == 0)
-				rect.width = lastLabelSize.x;
-			else
-				rect.width = maxLocationWidth;
-				
 			GUI.Label ( rect, selectedTask.location, locationFormat);
 			rect.y += lastLabelSize.y;
 			
@@ -353,8 +354,12 @@ public class RoarTasksWidget : RoarUIWidget
 				rect.width = lastLabelSize.x;
 			else
 				rect.width = maxLocationWidth;
+			rect.x = margin;
 				
-			GUI.Label ( rect, "Mastery lvl: "+selectedTask.mastery_level, locationFormat);
+			GUI.Label ( rect, "Mastery lvl: ", labelFormat);
+			rect.x += 200;
+			GUI.Label ( rect, selectedTask.mastery_level.ToString(), descriptionFormat);
+			rect.x = margin;
 			rect.y += lastLabelSize.y;
 			
 			CRMVisitor<string> visitorObject = new CRMToString();
@@ -362,22 +367,21 @@ public class RoarTasksWidget : RoarUIWidget
 			string costsString = "";
 			foreach(Roar.DomainObjects.Cost cost in selectedTask.costs)
 			{
-				costsString += visitorObject.visit_cost(cost);
+				costsString += visitorObject.visit_cost(cost)+"\n";
 			}
 			
-			lastLabelSize =GUI.skin.FindStyle(detailFormat).CalcSize(new GUIContent("Costs: "+costsString));
+			lastLabelSize =GUI.skin.FindStyle(descriptionFormat).CalcSize(new GUIContent("Costs: "+costsString));
 			rect.height = lastLabelSize.y;
 			rect.width = lastLabelSize.x;
 			
-			if(maxLocationWidth == 0)
-				rect.width = lastLabelSize.x;
-			else
-				rect.width = maxLocationWidth;
-				
+			rect.width = lastLabelSize.x;
 			
-			GUI.Label ( rect, "Costs: "+costsString, detailFormat);
+			GUI.Label ( rect, "Costs: ", labelFormat);
+			
+			rect.x = 200;
+			GUI.Label ( rect, costsString, descriptionFormat);
 			rect.y += lastLabelSize.y;
-			
+			rect.x = margin;
 			string rewardsString = "";
 			foreach(Roar.DomainObjects.Modifier modifier in selectedTask.rewards)
 			{
@@ -389,13 +393,12 @@ public class RoarTasksWidget : RoarUIWidget
 			rect.height = lastLabelSize.y;
 			rect.width = lastLabelSize.x;
 			
-			if(maxLocationWidth == 0)
-				rect.width = lastLabelSize.x;
-			else
-				rect.width = maxLocationWidth;
-				
-			GUI.Label (rect, "Rewards: "+rewardsString, detailFormat);
+			rect.x = margin;
+			GUI.Label (rect, "Rewards: ", labelFormat);
+			rect.x += 200;
+			GUI.Label (rect, rewardsString, descriptionFormat);
 			rect.y += lastLabelSize.y;
+			rect.x = margin;
 			
 			string requirementsString = "";
 			foreach(Roar.DomainObjects.Requirement requirement in selectedTask.requirements)
@@ -408,16 +411,28 @@ public class RoarTasksWidget : RoarUIWidget
 			rect.height = lastLabelSize.y;
 			rect.width = lastLabelSize.x;
 			
-			if(maxLocationWidth == 0)
-				rect.width = lastLabelSize.x;
-			else
-				rect.width = maxLocationWidth;
-				
-			GUI.Label (rect, "Requirements: "+requirementsString, detailFormat);
+			rect.width = lastLabelSize.x;
+
+			GUI.Label (rect, "Requirements: ", labelFormat);
+
+			rect.x += 200;
+			GUI.Label (rect, requirementsString, descriptionFormat);
+			rect.x = margin;
 			rect.y += lastLabelSize.y;
 		
+			rect.width = buttonWidth;
+
 			if(GUI.Button(rect, "Back"))
 			{
+				selectedTask = null;
+				hasSelectedTask = false;
+			}
+
+			rect.x += rect.width+rect.width/2;
+
+			if(GUI.Button(rect, "Execute"))
+			{
+				tasks.Execute(selectedTask.ikey, null);
 				selectedTask = null;
 				hasSelectedTask = false;
 				
@@ -428,12 +443,14 @@ public class RoarTasksWidget : RoarUIWidget
 	
 	public void Fetch()
 	{
+		networkActionInProgress = true;
 		isFetching = true;
 		tasks.Fetch(OnRoarFetchTasksComplete);
 	}
 	
 	void OnRoarFetchTasksComplete( Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.Task> > data )
 	{
+		networkActionInProgress = false;
 		isFetching = false;
 	}
 
