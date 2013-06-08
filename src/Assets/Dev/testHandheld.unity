@@ -143,7 +143,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
   scrollBarStyle: 
-  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
+  scaleMultiplier: 1
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   whenToFetch: 2
@@ -157,7 +157,7 @@ MonoBehaviour:
   showType: 1
   allowSorting: 1
   maxLabelWidth: 58
-  maxDescriptionFormatWidth: 310
+  maxDescriptionFormatWidth: 250
   maxTypeWidth: 40
   rowHeight: 32
   divideHeight: 30
@@ -225,7 +225,7 @@ MonoBehaviour:
   debug: 1
   appstoreSandbox: 1
   gameKey: shooty
-  defaultGUISkin: {fileID: 11400000, guid: e9a7b12d3982d1b4b9c3f31ff7587cc9, type: 2}
+  defaultGUISkin: {fileID: 11400000, guid: 0f6271d53b9f51b44b03f640c2e704e4, type: 2}
 --- !u!1 &609839861
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +306,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
   scrollBarStyle: DefaultScrollbarStyle
-  spinnerMovieTex: {fileID: 0}
+  scaleMultiplier: .699999988
   autoEnableOnLogIn: 1
   autoDisableOnLogout: 1
   interButtonSpacing: 0
@@ -391,7 +391,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
   scrollBarStyle: DefaultScrollbarStyle
-  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
+  scaleMultiplier: 1
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   whenToFetch: 2
@@ -453,8 +453,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 512
-    height: 386
+    width: 0
+    height: 0
   skin: {fileID: 0}
   depth: 0
   apearance:
@@ -486,7 +486,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
   scrollBarStyle: 
-  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
+  scaleMultiplier: .5
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   whenToFetch: 0
@@ -581,7 +581,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
   scrollBarStyle: 
-  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
+  scaleMultiplier: .699999988
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   whenToFetch: 0
@@ -594,37 +594,6 @@ MonoBehaviour:
     height: 64
   leaderboardItemSpacing: 4
   leaderboardEntryStyle: DefaultButton
-  rankingItemBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 450
-    height: 50
-  rankingItemSpacing: 4
-  rankingEntryPlayerRankStyle: 
-  rankingEntryPlayerNameStyle: 
-  rankingEntryPlayerScoreStyle: 
-  previousButtonLabel: Previous page
-  previousButtonStyle: DefaultPillboxStyle
-  nextButtonLabel: Next page
-  nextButtonStyle: DefaultPillboxStyle
-  customDataFormat: '{0}:{1}'
-  rankFormat: '{0}'
-  rankStyle: LeaderboardRankingRank
-  valueFormat: '{0}'
-  valueStyle: LeaderboardRankingValue
-  valueWidth: 100
-  rankColumnWidth: 40
-  interColumnSeparators: 40
-  divideHeight: 20
-  sectionHeight: 50
-  topSeparation: 5
-  footerHeight: 60
-  buttonHeight: 30
-  leaderboardId: 
-  leaderboardName: 
-  hasSelectedLeaderboard: 0
-  page: 1
 --- !u!1 &1277531603
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,7 +674,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
   scrollBarStyle: DefaultScrollbarStyle
-  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
+  scaleMultiplier: .699999988
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   whenToFetch: 2
@@ -901,7 +870,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
   scrollBarStyle: 
-  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
+  scaleMultiplier: .699999988
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   whenToFetch: 2
@@ -1020,7 +989,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
   scrollBarStyle: DefaultScrollbarStyle
-  spinnerMovieTex: {fileID: 0}
+  scaleMultiplier: 1
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   status: 
@@ -1108,7 +1077,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
   scrollBarStyle: 
-  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
+  scaleMultiplier: .699999988
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   labelFormat: DefaultHeavyContentLeftText
@@ -1163,6 +1132,84 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d1746b72df9849eaa2e6708df2cc52c, type: 3}
   m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 100
+    width: 800
+    height: 386
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 30
+    windowBorderWidth: 7
+  windowInfo:
+    isWindowed: 1
+    supportsDragging: 1
+  displayName: Leaderboard
+  drawSubheading: 1
+  subheaderName: None
+  subheaderDarkWidth: 150
+  horizontalAlignment: 2
+  verticalAlignment: 1
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 1
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 1
+  scrollBarStyle: 
+  scaleMultiplier: .699999988
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
+  whenToFetch: 0
+  howOftenToFetch: 60
+  rankingItemBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 476
+    height: 64
+  rankingItemSpacing: 4
+  rankingEntryPlayerRankStyle: LeaderboardRankingPlayerRank
+  rankingEntryPlayerNameStyle: LeaderboardRankingPlayerName
+  rankingEntryPlayerScoreStyle: LeaderboardRankingPlayerScore
+  previousButtonLabel: Previous page
+  previousButtonStyle: DefaultPillboxStyle
+  nextButtonLabel: Next page
+  nextButtonStyle: DefaultPillboxStyle
+  customDataFormat: '{0}:{1}'
+  rankFormat: '{0}'
+  rankStyle: LeaderboardRankingRank
+  valueFormat: '{0}'
+  valueStyle: LeaderboardRankingValue
+  valueWidth: 100
+  rankColumnWidth: 40
+  interColumnSeparators: 40
+  divideHeight: 20
+  sectionHeight: 50
+  topSeparation: 5
+  footerHeight: 60
+  buttonHeight: 30
+  leaderboardId: 
+  leaderboardName: 
+  page: 1
 --- !u!1 &1953525291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,7 +1290,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
   scrollBarStyle: DefaultScrollbarStyle
-  spinnerMovieTex: {fileID: 0}
+  scaleMultiplier: .699999988
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   buttonWidth: 100
@@ -1334,7 +1381,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
   scrollBarStyle: 
-  spinnerMovieTex: {fileID: 0}
+  scaleMultiplier: 1
   autoEnableOnLogIn: 1
   autoDisableOnLogout: 1
   autoCalculateContentBounds: 1
@@ -1446,7 +1493,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
   scrollBarStyle: DefaultScrollbarStyle
-  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
+  scaleMultiplier: .699999988
   autoEnableOnLogIn: 1
   autoDisableOnLogout: 1
   autoCalculateContentBounds: 1
@@ -1542,7 +1589,7 @@ MonoBehaviour:
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
   scrollBarStyle: 
-  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
+  scaleMultiplier: .699999988
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   enableOnAwake: 1

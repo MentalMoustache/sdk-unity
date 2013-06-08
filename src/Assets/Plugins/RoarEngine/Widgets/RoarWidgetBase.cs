@@ -1,3 +1,7 @@
+#if(!(UNITY_IPHONE || UNITY_ANDROID))
+#define USE_SPINNER_MOVIE
+#endif
+
 using System;
 using UnityEngine;
 using System.Collections;
@@ -102,7 +106,12 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	Rect headerRect;
 	Rect headerRightRect;
 	protected bool networkActionInProgress;
+
+	public float scaleMultiplier = 1;
+
+#if(USE_SPINNER_MOVIE)
 	public MovieTexture spinnerMovieTex;
+#endif
 
 	protected virtual void SnapBoundsRectIntoPosition()
 	{
@@ -243,6 +252,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 			{
 				GUI.enabled = true;
 				GUI.Box(new Rect(0, 0, bounds.width, bounds.height), new GUIContent(""), "DarkOverlay");
+				#if(USE_SPINNER_MOVIE)
 				if(spinnerMovieTex != null)
 				{
 					GUI.Box(new Rect(bounds.width/2 - 50, bounds.height/2 - 50, 100, 100), spinnerMovieTex, "DefaultSpinner");
@@ -250,6 +260,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 						spinnerMovieTex.Play();
 					spinnerMovieTex.loop= true;
 				}
+				#endif
 			}
 			GUI.EndGroup();
 		}
@@ -306,10 +317,12 @@ public abstract class RoarWidgetBase : MonoBehaviour
 			GUI.enabled = true;
 			GUI.Box(new Rect(0, 0, bounds.width, bounds.height), new GUIContent(""), "DarkOverlay");
 
+			#if(USE_SPINNER_MOVIE)
 			GUI.Box(new Rect(bounds.width/2 - 50, bounds.height/2 - 50, 100, 100), spinnerMovieTex, "DefaultSpinner");
 			if(!spinnerMovieTex.isPlaying)
 				spinnerMovieTex.Play();
 				spinnerMovieTex.loop= true;
+			#endif
 		}
 		else
 			if( windowInfo.supportsDragging)
