@@ -225,6 +225,7 @@ MonoBehaviour:
   debug: 1
   appstoreSandbox: 1
   gameKey: shooty
+  roarAPIUrl: http://api.roar.io/
   defaultGUISkin: {fileID: 11400000, guid: e9a7b12d3982d1b4b9c3f31ff7587cc9, type: 2}
 --- !u!1 &609839861
 GameObject:

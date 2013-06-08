@@ -34,6 +34,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 	public bool debug = true;
 	public bool appstoreSandbox = true;
 	public string gameKey = string.Empty;
+	public string roarAPIUrl = "https://api.roar.io/";
 	public enum XMLType { Lightweight, System };
 	public GUISkin defaultGUISkin;
 
@@ -138,6 +139,11 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		string key = gameKey.ToLower();
 		       //key = key.Replace("_", "");
 		Config.Game = key;
+
+		// Apply changes to API host to Config setting
+		string roarUrl = roarAPIUrl.ToLower();
+		Config.RoarAPIUrl = roarUrl;
+
 		Config.IsDebug = debug;
 
 		RequestSender api = new RequestSender(config,this,logger);
