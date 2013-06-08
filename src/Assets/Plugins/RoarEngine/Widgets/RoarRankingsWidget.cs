@@ -12,7 +12,7 @@ public class RoarRankingsWidget : RoarUIWidget
 	public float howOftenToFetch = 60;
 	
 	public Rect rankingItemBounds = new Rect(0, 0, 450, 50);
-	public float rankingItemSpacing;
+	public float rankingItemSpacing = 4;
 	public string rankingEntryPlayerRankStyle = "LeaderboardRankingPlayerRank";
 	public string rankingEntryPlayerNameStyle = "LeaderboardRankingPlayerName";
 	public string rankingEntryPlayerScoreStyle = "LeaderboardRankingPlayerScore";
@@ -30,11 +30,12 @@ public class RoarRankingsWidget : RoarUIWidget
 	
 	public float valueWidth =100;
 	public float rankColumnWidth = 40;
-	public float interColumnSeparators =5;
+	public float interColumnSeparators =40;
 	public float divideHeight = 20;
 	public float sectionHeight = 50;
 	public float topSeparation = 5;
 	public float footerHeight = 60;
+	public float buttonHeight = 30;
 	
 	public string leaderboardId = string.Empty;
 	public string leaderboardName = "";
@@ -48,6 +49,12 @@ public class RoarRankingsWidget : RoarUIWidget
 	{
 		base.Awake();
 		ScrollViewContentWidth = rankingItemBounds.width;
+	}
+	void Reset()
+	{
+		bounds = new Rect(512,100,512,386);
+		subheaderDarkWidth = 150;
+		displayName = "Rankings";
 	}
 	
 	protected override void OnEnable()
@@ -160,7 +167,12 @@ public class RoarRankingsWidget : RoarUIWidget
 				GUI.Box(new Rect(interColumnSeparators, ySoFar, rank.x, sectionHeight), item.rank.ToString(), "DefaultHeavyContentText");
 				GUI.Box(new Rect(2*interColumnSeparators + rank.x, ySoFar, labSize.x, sectionHeight), prop_string, "DefaultHeavyContentText");
 
-				GUI.Label (new Rect(contentBounds.width - valueWidth - interColumnSeparators, heightSoFar, valueWidth, labSize.y),  item.value.ToString(), "DefaultHeavyContentText");
+				GUI.Label (new Rect(3*interColumnSeparators + rank.x+labSize.x, heightSoFar, valueWidth, labSize.y),  item.value.ToString(), "DefaultHeavyContentText");
+				
+				if(GUI.Button(new Rect(4*interColumnSeparators + rank.x + labSize.x+valueWidth, ySoFar, valueWidth, buttonHeight), "View Prof", "DefaultButton"))
+				{
+					GameObject.Find("ProfileViewerWidget").SendMessage("ViewProfile", item.player_id, SendMessageOptions.RequireReceiver);
+				}
 				heightSoFar += sectionHeight + topSeparation;
 			}
 

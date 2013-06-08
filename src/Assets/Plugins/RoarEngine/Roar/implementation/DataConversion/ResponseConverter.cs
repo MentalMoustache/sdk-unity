@@ -385,7 +385,7 @@ namespace Roar.DataConversion.Responses
 
 					invite.invite_id = invite_node.GetAttribute("invite_id");
 					invite.player_id = invite_node.GetAttribute("from_player_id");
-					invite.player_name = invite_node.GetAttribute("from_player");
+					invite.player_name = invite_node.GetAttribute("from_player_name");
 					invite.message = invite_node.GetAttribute("message");
 					
 					retval.invites.Add(invite);
@@ -830,6 +830,14 @@ namespace Roar.DataConversion.Responses
 							{
 								if( ccc.NodeType != System.Xml.XmlNodeType.Element ) continue;
 								if( ccc.Name == "property" )
+								{
+									LeaderboardExtraProperties prop = new LeaderboardExtraProperties();
+									System.Xml.XmlElement ccc_e = ccc as System.Xml.XmlElement;
+									prop.ikey = ccc_e.GetAttribute("ikey");
+									prop.value = ccc_e.GetAttribute("value");
+									lbe.properties.Add( prop );
+								}
+								else if( ccc.Name == "stat" )
 								{
 									LeaderboardExtraProperties prop = new LeaderboardExtraProperties();
 									System.Xml.XmlElement ccc_e = ccc as System.Xml.XmlElement;

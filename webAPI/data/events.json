@@ -274,7 +274,10 @@
       "inventory",
       "cache",
       "tasks",
-	  "facebook"
+	  "facebook",
+	  "giftsSendable",
+	  "giftsAcceptabe",
+	  "friends"
     ]
   }
 }

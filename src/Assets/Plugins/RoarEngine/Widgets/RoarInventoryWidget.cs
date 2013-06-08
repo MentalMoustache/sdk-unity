@@ -11,20 +11,21 @@ public class RoarInventoryWidget : RoarUIWidget
 	protected Roar.Components.IInventory inventory;
 	protected bool isFetching=false;
 	
-	public string labelFormat = "InventoryLabel";
-	public string descriptionFormat = "InventoryDescription";
-	public string typeFormat = "InventoryType";
-	public string consumeButtonFormat = "InventoryConsumeButton";
+	public string labelFormat = "DefaultHeavyContentText";
+	public string descriptionFormat = "DefaultLightContentText";
+	public string typeFormat = "DefaultHeavyContentLeftText";
+	public string consumeButtonFormat = "DefaultButton";
+	public float consumeButtonWidth = 100;
 	
 	public bool showDescription = true;
 	public bool showType = true;
 	public bool allowSorting = true;
 	
-	public int maxLabelWidth = 150;
-	public int maxDescriptionFormatWidth = 350;
-	public int maxTypeWidth = 100;
+	public int maxLabelWidth = 58;
+	public int maxDescriptionFormatWidth = 310;
+	public int maxTypeWidth = 40;
 	public int rowHeight = 32;
-	public int divideHeight = 30;
+	public int divideHeight = 50;
 	public int margin = 5;
 
 	protected override void OnEnable ()
@@ -44,6 +45,12 @@ public class RoarInventoryWidget : RoarUIWidget
 		
 	}
 	
+	void Reset()
+	{
+		displayName = "Inventory";
+		bounds = new Rect(0,0,512,386);
+	}
+
 	protected override void DrawGUI(int windowId)
 	{
 		if (inventory == null || !IsLoggedIn) return;
@@ -95,6 +102,7 @@ public class RoarInventoryWidget : RoarUIWidget
 		rect.x += rect.width+ margin;
 		
 		lastLabelSize =GUI.skin.FindStyle(consumeButtonFormat).CalcSize(new GUIContent("Consume"));
+		rect.width += lastLabelSize.x;
 		rect.width = lastLabelSize.x;
 		
 		rect.x = margin;
@@ -129,6 +137,12 @@ public class RoarInventoryWidget : RoarUIWidget
 				
 			GUI.Label ( rect, item.type, typeFormat);
 			rect.x += rect.width+ margin;
+			rect.width = consumeButtonWidth;
+
+			if(item.consumable && GUI.Button(rect, "Consume", consumeButtonFormat))
+			{
+				inventory.Use(item.id, OnRoarInventoryConsumeComplete);
+			}
 			
 			rect.x = margin;
 			rect.y += rowHeight;
@@ -148,9 +162,17 @@ public class RoarInventoryWidget : RoarUIWidget
 		isFetching = false;
 	}
 	
+	void OnRoarInventoryConsumeComplete(Roar.CallbackInfo<Roar.WebObjects.Items.UseResponse> data)
+	{
+		networkActionInProgress = false;
+		if(data.code == WebAPI.OK)
+		{
+			Fetch();
+		}
+	}
+	
 	// Use this for initialization
 	void Start () {
-	
 	}
 	
 	// Update is called once per frame
