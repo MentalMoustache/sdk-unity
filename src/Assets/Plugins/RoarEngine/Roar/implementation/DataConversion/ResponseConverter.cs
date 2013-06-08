@@ -942,6 +942,7 @@ namespace Roar.DataConversion.Responses
 			{
 				Roar.WebObjects.Scripts.RunResponse retval = new Roar.WebObjects.Scripts.RunResponse();
 				System.Xml.XmlNode result_node = n.SelectSingleNode("./scripts/run");
+				retval.result = new ScriptRunResult();
 				retval.result.resultNode = result_node as System.Xml.XmlElement;
 				return retval;
 			}
@@ -953,6 +954,7 @@ namespace Roar.DataConversion.Responses
 			{
 				Roar.WebObjects.Scripts.RunAdminResponse retval = new Roar.WebObjects.Scripts.RunAdminResponse();
 				System.Xml.XmlNode result_node = n.SelectSingleNode("./scripts/run");
+				retval.result = new ScriptRunResult();
 				retval.result.resultNode = result_node as System.Xml.XmlElement;
 				return retval;
 			}
