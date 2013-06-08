@@ -250,7 +250,7 @@ namespace Roar.DataConversion.Responses
 			{
 				Roar.WebObjects.Facebook.ShopListResponse retval = new Roar.WebObjects.Facebook.ShopListResponse();
 				retval.shop_list = new List<DomainObjects.FacebookShopEntry>();
-				System.Xml.XmlNodeList shop_item_nodes = n.SelectNodes("./facebook/shop_list/shopitem");
+				System.Xml.XmlNodeList shop_item_nodes = n.SelectNodes("./facebook/shop_list/fbshopitem");
 				foreach( System.Xml.XmlElement shop_item_node in shop_item_nodes )
 				{
 					retval.shop_list.Add( DomainObjects.FacebookShopEntry.CreateFromXml( shop_item_node, ixcrm_parser ) );
