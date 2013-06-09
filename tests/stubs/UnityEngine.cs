@@ -81,6 +81,15 @@ namespace UnityEngine
 	public class Application
 	{
 		public static bool isEditor { get { return false; } }
+
+		public static void OpenURL( string url )
+		{
+		}
+
+		public static void ExternalCall( string call )
+		{
+		}
+
 	}
 }
 

@@ -8,6 +8,7 @@ public class DefaultRoarInspector : RoarInspector
 	private SerializedProperty debug;
 	private SerializedProperty appstoreSandbox;
 	private SerializedProperty gameKey;
+	private SerializedProperty roarAPIUrl;
 	private SerializedProperty defaultGUISkin;
 	
 	protected override void OnEnable()
@@ -17,6 +18,7 @@ public class DefaultRoarInspector : RoarInspector
 		debug = serializedObject.FindProperty("debug");
 		appstoreSandbox = serializedObject.FindProperty("appstoreSandbox");
 		gameKey = serializedObject.FindProperty("gameKey");
+		roarAPIUrl = serializedObject.FindProperty("roarAPIUrl");
 		defaultGUISkin = serializedObject.FindProperty("defaultGUISkin");
 	}
 	
@@ -29,6 +31,14 @@ public class DefaultRoarInspector : RoarInspector
 		EditorGUILayout.PropertyField(gameKey);
 		if (gameKey.stringValue.Length == 0)
 			EditorGUILayout.HelpBox("Please specify your game key. It is required!", MessageType.Error);
+
+		// roarAPIURL
+		Comment("The fully qualified Roar host URL");
+		roarAPIUrl.stringValue = roarAPIUrl.stringValue.Trim();
+		EditorGUILayout.PropertyField(roarAPIUrl);
+		if (roarAPIUrl.stringValue.Length == 0)
+			EditorGUILayout.HelpBox("Please specify your game host. It is required!", MessageType.Error);
+
 		// debug
 		Comment("Enable debug output.");
 		EditorGUILayout.PropertyField(debug);

@@ -1,5 +1,19 @@
 # RoarEngine UnitySDK Changelog
 
+# Changes in v1.0.3
+
+### New Features
+
+* Expose API host as editable field in Unity Editor **[UNITYSDK-245]**
+* Significantly improved README.md
+
+### Bug Fixes
+
+* Fixes the multiple calls to propertyChanged **[UNITYSDK-214]**
+* Null reference errors changed into valid error responses **[UNITYSDK-215]**
+* Fix for Facebook shop item parsing **[UNITYSDK-244]**
+* Fix response converter for Script call return values
+
 ## Changes in v1.0.2
 
 ### New Features
