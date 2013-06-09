@@ -1,152 +1,145 @@
 # Roar Unity SDK
 
-## Using the roar sdk unity package
+A C# interface to the [Roar API](http://roarengine.github.io/webapi/), with skinnable prefab UI widgets.
 
-[A video tutorial on Setting up the RoarEngine Unity SDK package is available on our YouTube channel: http://www.youtube.com/watch?v=JBuFvBeIzuI](http://www.youtube.com/watch?v=JBuFvBeIzuI)
 
-1. The latest Roar.unityPackage can be downloaded from 
-https://github.com/roarengine/sdks/downloads 
-and imported into a newly created or existing unity project.
+#### Prerequisites
+The SDK requires that you have access to a Roar API host. See [www.roarengine.com](http://roarengine.com/) to set one up.
 
-2. Run the Unity Editor and open the project that you wish to use Roar with or create a new one.
+## Summary
 
-3. Import the Roar Unity sdk package via the menu item at
-Assets->Import Package->Custom Package...
+To get the Roar SDK set up in your Unity application:
 
-4. Ensure that all files are selected for import and click 'Import'.
-This will add a Plugins/Roar folder to your project.
+1. Import the Roar SDK package `Roar.unityPackage` into your project
+2. Create a **Roar System Object** Game Object
+3. Set the Roar **game key** and **API host**
+4. Configure Roar SDK event handlers and callbacks
+5. Update your app to make calls to the server via the SDK interface `IRoar`
 
-5. Next create a Roar game object via the menu item at
-Game Object->Create Other->Roar->Scene Object
+#### Examples
+Full **implementation examples** are in the imported **`/Dev/test.unity`** scene. Or, for a simple example, you can try our [augmented version of AngryBots](https://github.com/roarengine/angrybots).
 
-6. To begin using the Roar SDK, set the game key. This is the same
-name that you used when you created the game from the Roar Admin.
-e.g. http://api.roar.io/yourgamekey
+#### SDK docs
+Doxygen generated [Class documentation](http://roarengine.github.io/unityapi/).
 
-At this point you will be able to make calls to IRoar to interact with the roar server.
+---
 
-There are two ways to handle the results of a roar sdk function.
+## Installation
+Download **[Roar.unityPackage](https://github.com/roarengine/sdk-unity/raw/master/Roar.unityPackage)** for Unity 4.x. Or clone this repository:
 
-For each interaction with the roar sdk interface, you will need to either setup handlers 
-for events that have been fired as a result of an sdk call or you can pass a callback 
-function to an sdk call, either approach enables you to provide logic to handle the 
-results of the call.
+    git clone https://github.com/roarengine/sdk-unity.git
 
-For example, to handle the successful login of a user via an event, you could write:
+Import the Roar Unity SDK package file **Roar.unityPackage** via the menu item at `Assets->Import Package->Custom Package`. This will add a *Plugins/Roar* folder to your project.
 
-    function doLogin() {
-       function doLogin(username, password) {
-       roar.login(username, password, null);
-    }
-    
+
+
+
+## Using the SDK
+
+Once imported:
+
+
+1. Always start by adding a Roar **System Object** to setup your config. Menu item:
+`Game Object->Create Other->Roar->System Object`
+
+2. To begin using the SDK, set the **API host** and **game key**.
+    - **API host**: the root hostname of your API (eg. `http://api.your.host/`)
+    - **game key**: the lowercase unique *key* identifying your game (eg. `my_game`)
+
+
+### Making calls
+SDK calls use the `IRoar` interface to interact with the Roar server API.
+
+There are two ways to **handle the results** of an SDK call:
+
+- **1. Events**: setup *listeners* for events that have been fired as a result of an SDK call.
+
+Event handler example:
+
+    // Your handler function
+    function onLogin() { /* Your handler code here */ }
+
+    // Setup the event listener to run your `onLogin` handler
     RoarManager.loggedInEvent += onLogin;
-    function onLogin()
-    {
-       ...
-    }
 
-or to handle the successful login of a user via a callback, you could write:
+    // Trigger a call to login and watch the fireworks
+    // Notice the 'null' third parameter. No callback.
+    roar.login(username, password, null);
 
-    function doLogin() {
-       function doLogin(username, password) {
-       roar.login(username, password, onLogin);
-    }
-    
-    function onLogin(d:Roar.CallbackInfo)
-    {
-       ...
-    }
+- **2. Callback methods**: explicitly make SDK calls passing a callback handler
 
-Both of these approaches are fine, your approach will depend on which interface functions
-have roar sdk events and which support callbacks. For functions that support both, the
-choice is yours. 
+Callback handler example:
 
-In summary, these are the steps to get the Roar SDK set up in your Unity application.
+    // Your handler function
+    function onLogin() { /* Your handler code here */ }
 
-1. Import the roar unity sdk into your project
-2. Create a Roar Game Object
-3. Set the roar game name (you will need to create a game via the roar admin website)
-4. Configure roar sdk event handlers and callbacks
-5. Update your application to make calls to the roar server via the sdk interface IRoar
+    // Call the SDK method, passing your `onLogin` callback handler
+    roar.login(username, password, onLogin);
 
-For a simple example of using the Roar Unity SDK, you can try our augmented version of the Unity AngryBots tech demo.
+#### Gotchas to note
+Both of these approaches are fine, but **not all SDK methods support both**. Check the class documentation for details.
 
-## Building the Roar Unity package (Mac/Linux)
+### Class documentation
+Doxygen class documention available at **[http://roarengine.github.io/unityapi](http://roarengine.github.io/unityapi/)**
 
-You will need to have node.js installed for the build process to work.
-Inparticular we use jsonlint and underscore for generating some code from templates.
-You can install these by running the following command from the unity directory.
 
-    npm install -g jsonlint
-    npm install underscore
+### Footnote: Raw API access
+There is a low level API bridge available via `IRoar.WebAPI`.
 
-You can then build the generated source code by running 
+This allows you to make (almost) raw calls to the Roar API. Please note that mixing and matching SDK calls with this lower level interface may not keep your application in sync. *Use with caution*.
 
-    ./build.sh
+For more details, [check the documentation](http://roarengine.github.io/unityapi/#unity_sdk_vs_web_api).
 
-You can then build the API documentation. This will require that you have doxygen installed.
 
-    make -f docs.Makefile
+---
 
-And finally you can build the roar unity sdk package
+## Contributing
+This is an open source project. Go nuts.
 
-    make -f package.Makefile
+## Build process
 
-This will produce the roar unity sdk package file Roar.unityPackage, which is to be used as described in
-the first section of this readme.
+### Requirements
+Requires **npm** which is bundled with [NodeJS](http://nodejs.org/download/). Once installed you will need to ensure you have `jsonlint` available in your path (ie. global) and a local copy of `underscore`.
 
-## Building the roar unity package (Windows)
+Also requires **[doxygen](http://www.stack.nl/~dimitri/doxygen/download.html)** to generate the API documentation.
 
-You will need to have npm and node.js installed for the build process to work.
-We use jsonlint and underscore for generating some code from templates.
-The node package manager (npm) will come with the node installer: http://nodejs.org/#download
+### Build Instructions
+Build the package by running
 
-After you have installed node/npm make sure they are available in the windows command
-prompt by executing the following commands:
+    (Mac) make -f package.Makefile
+    (Win) package.bat
 
-    node -v
-    npm -v
+This will produce a `./dist/Roar.unityPackage`.
 
-If the commands do not exist check that the binaries for node and npm are on your path.
+You can also generate updated class docs *(Requires [doxygen](http://www.stack.nl/~dimitri/doxygen/download.html))*
 
-The next step is to install jsonlint and underscore by running the following npm command from the unity directory.
+    (Mac): make -f docs.Makefile
+    (Win): doxygen api_docs.doxygen
 
-    cd sdks/unity
-    npm install -g jsonlint
-    npm install underscore
+#### Notes on system PATH
+You will need to ensure that `Unity` is available in your system `$PATH`, along with access to `jsonlint` and `doxygen`. For Windows users, your Unity Editor executable is likely to be at either:
 
-You can then build the generated source code by running
+    (a) ;C:\Program Files (x86)\Unity\Editor
+    (b) ;C:\Program Files\Unity\Editor
 
-    build.bat
 
-You can then build the API documentation. This will require that you have doxygen installed on the command line.
+## Testing
+Open the `Testing.sln` project in the root of the repository (using something like **MonoDevelop**. You **must** refresh the reference to the `/Testing/NMock2.dll` file pacakged with the repository.
 
-    doxygen api_docs.doxygen
+- In the project file browser on the left:
+    - expand the 'Testing' folder
+    - *right-click* on **References**
+    - Select **Edit References**
+- In the Edit References popup:
+    - Click the **.NET Assemblies** tab
+    - Navigate to the `/Testing` folder in the repository
+    - Double click (or 'Add') the `NMock2.dll` file
+    - Click "Okay"
 
-And finally you can build the roar unity sdk package
-Before running this batch script from the command line, you will need to add the Unity editor executable to
-your windows PATH variable. The addition to PATH will be either:
+To run the tests, click on the **Unit Tests** tab on the left and double-click the **Testing** menu item - this will *build and run* the tests. Alternatively, select "Run Item" on the Testing project folder.
 
-    ;C:\Program Files (x86)\Unity\Editor
+Note that several tests are only stubs, and thus ignored.
 
-or 
+---
 
-    ;C:\Program Files\Unity\Editor
-
-depending on the location of your Unity installation.
-
-You can then run the package script to build the unity package for the roar sdk.
-
-    package.bat
-
-This will produce the roar unity sdk package file Roar.unityPackage, which is to be used as described in
-the first section of this readme.
-
-## Secure Communication with RoarEngine
-
-By default the config setting for the roar server uses the https protocol, if you're Unity client does not support
-https you can change the config item at application startup to use unencrypted communication:
-
-roar.Config.roar_api_url = "http://api.roar.io/";
-
-However it should be noted that player usernames and passwords will be plain text when using http and this approach is discouraged.
+:P
