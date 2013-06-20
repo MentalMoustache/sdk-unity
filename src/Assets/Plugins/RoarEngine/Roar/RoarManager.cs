@@ -241,14 +241,14 @@ public class RoarManager
 	/**
 	 * Fired when the data have been retrieved from the server.
 	 */
-	public static event Action giftsAcceptabeReadyEvent;
-	public static void OnGiftsAcceptabeReady() { if(giftsAcceptabeReadyEvent!=null) giftsAcceptabeReadyEvent(); }
+	public static event Action giftsAcceptableReadyEvent;
+	public static void OnGiftsAcceptableReady() { if(giftsAcceptableReadyEvent!=null) giftsAcceptableReadyEvent(); }
 
 	/**
 	 * Fired when the data changes.
 	 */
-	public static event Action giftsAcceptabeChangeEvent;
-	public static void OnGiftsAcceptabeChange() { if(giftsAcceptabeChangeEvent!=null) giftsAcceptabeChangeEvent(); }
+	public static event Action giftsAcceptableChangeEvent;
+	public static void OnGiftsAcceptableChange() { if(giftsAcceptableChangeEvent!=null) giftsAcceptableChangeEvent(); }
 
 	/**
 	 * Fired when the data have been retrieved from the server.
@@ -530,8 +530,8 @@ public class RoarManager
 		case "giftsSendable":
 			OnGiftsSendableChange();
 			break;
-		case "giftsAcceptabe":
-			OnGiftsAcceptabeChange();
+		case "giftsAcceptable":
+			OnGiftsAcceptableChange();
 			break;
 		case "friends":
 			OnFriendsChange();
@@ -598,8 +598,8 @@ public class RoarManager
 		case "giftsSendable":
 			OnGiftsSendableReady();
 			break;
-		case "giftsAcceptabe":
-			OnGiftsAcceptabeReady();
+		case "giftsAcceptable":
+			OnGiftsAcceptableReady();
 			break;
 		case "friends":
 			OnFriendsReady();
