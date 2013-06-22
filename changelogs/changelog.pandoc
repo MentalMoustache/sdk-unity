@@ -1,5 +1,13 @@
 # RoarEngine UnitySDK Changelog
 
+# Changes in v1.0.4
+
+### Bug Fixes
+
+* "GiftsAcceptable" correctly named **[#1]**
+* Makefile fixed to support correct bundling of Assets
+* `Roar.unityPackage` file now correctly bundled
+
 # Changes in v1.0.3
 
 ### New Features
