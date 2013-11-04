@@ -1,5 +1,11 @@
 # RoarEngine UnitySDK Changelog
 
+# Changes in v1.0.5
+
+### Bug Fixes
+
+* Tags are now parsed as part of ShopEntry **[#2]**
+
 # Changes in v1.0.4
 
 ### Bug Fixes
