@@ -349,7 +349,13 @@ namespace Roar
 				{
 					retval.requirements = xcrm_parser.ParseRequirementList(requirements_node);
 				}
-				
+
+				System.Xml.XmlNodeList tag_nodes = n.SelectNodes("./tags/tag");
+				foreach(System.Xml.XmlElement tag_node in tag_nodes)
+				{
+					retval.tags.Add(tag_node.GetAttribute("value"));
+				}
+
 				return retval;
 			}
 		};
