@@ -162,7 +162,16 @@ public class DataModel<CT,DT> : IDataModel<CT,DT> where DT:class
 	// Shallow clone object
 	public static Dictionary<string,CT> Clone (Dictionary<string,CT> obj)
 	{
-		return (obj == null) ? null : new Dictionary<string, CT>( obj );
+		//Note: For some reason it seems the Dictionary
+		//      copy-constructor causes iOS to throw OutOfMemoryException
+		//      occasionally. So instead we copy all entries explicitly
+		if (obj == null) return null;
+		Dictionary<string, CT> tempDict = new Dictionary<string, CT>();
+		foreach (KeyValuePair<string, CT> item in obj)
+		{
+			tempDict.Add(item.Key, item.Value);
+		}
+		return tempDict;
 	}
 
 

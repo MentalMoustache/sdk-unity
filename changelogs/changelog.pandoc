@@ -1,5 +1,11 @@
 # RoarEngine UnitySDK Changelog
 
+# Changes in v1.0.6
+
+### Bug Fixes
+
+* Fixed occasional OutOfMemoryException on iOS
+
 # Changes in v1.0.5
 
 ### Bug Fixes
